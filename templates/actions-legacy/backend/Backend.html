@@ -1,0 +1,45 @@
+<div class="s-page-header"><h1 class="s-title">[`По способу оплаты`]</h1></div>
+
+<form action="" id="s-paydis-plugin-form">
+  <div class="fields form">
+    <div class="field-group"></div>
+    <div class="field-group">
+      <div class="field">
+        <div class="name">[`Скидка`]</div>
+        <div class="value">
+          <table class="zebra">
+            <thead>
+            <tr>
+              <th colspan="2">Способ оплаты</th>
+              <th>Скидка</th>
+            </tr>
+            </thead>
+            <tbody>
+            {foreach $settings.discounts as $row}{$method = $payment_methods[$row.payment_id]}
+              <tr>
+                <td>{if $method.logo}<img src="{$method.logo}" alt="{$method.description|escape}">{/if}</td>
+                <td>{$method.description|escape}</td>
+                <td>
+                  <input type="text" class="numerical" placeholder="нет скидки">
+                </td>
+              </tr>
+            {/foreach}
+            </tbody>
+          </table>
+        </div>
+        <div class="value">
+          <div class="help-text">
+            Возможные значения для размера скидки
+            <ul>
+              <li>100 — просто какое-то число</li>
+              <li>15% — проценты от стоимости заказа</li>
+              <li>100+15% — проценты от стоимости заказа и ещё фиксированная сумма</li>
+            </ul>
+            Если итоговое значение скидки получится меньше нуля, то скидки просто не будет. Получить таким хитрым
+            образом наценку не выйдет.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
