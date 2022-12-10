@@ -1,7 +1,7 @@
 <?php
 return [
-    'name'     => 'Скидка на способ оплаты',
-    'img'      => 'img/paydis.gif',
+    'name'     => /*_wp*/('Скидка на способ оплаты'),
+    'img'      => 'img/icon16.png',
     'version'  => '1.0.0',
     'vendor'   => '670917',
     'handlers' => [
