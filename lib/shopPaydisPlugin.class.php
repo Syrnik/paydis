@@ -44,14 +44,14 @@ class shopPaydisPlugin extends shopPlugin
                 if (!($discount = trim((string)($discount['discount'] ?? '')))) return [];
                 if (!($items = $params['order']['items'] ?? []) || !is_array($items)) return [];
                 $message = _wp('Скидка по способу оплаты');
-
-                return array_map(function ($item) use ($discount, $message) {
+                $discount = floatval($discount) / 100;
+                return ['items' => array_map(function ($item) use ($discount, $message) {
                     $total = $item['price'] * $item['quantity'];
                     return [
-                        'discount'    => min($total, $this->simpleFormulaCalculator($discount, $total)),
+                        'discount'    => min($total, $total * $discount),
                         'description' => $message
                     ];
-                }, $items);
+                }, $items)];
             }
         } catch (waException $exception) {
             try {
