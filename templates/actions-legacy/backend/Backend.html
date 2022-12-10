@@ -44,8 +44,8 @@
             <tbody>
             {foreach $settings.discounts as $row}{$method = $payment_methods[$row.payment_id]}
               <tr>
-                <td>{if $method.logo}<img src="{$method.logo}" alt="{$method.description|escape}">{/if}</td>
-                <td>{$method.description|escape}</td>
+                <td>{if $method.logo}<img src="{$method.logo}" alt="{$method.name|escape}">{/if}</td>
+                <td>{$method.name|escape}</td>
                 <td>
                   <input name="discount[{$row.payment_id}]" type="number" min="0" max="100" step="0.001" class="numerical"
                          placeholder="{_wp('нет скидки')|escape}" value="{$row.discount|escape}">
