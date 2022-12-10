@@ -34,6 +34,8 @@ class shopPaydisPluginBackendAction extends waViewAction
 
         $settings['discounts'] = $discounts;
 
-        $this->view->assign(compact('payment_methods', 'settings'));
+        $enabled = shopDiscounts::isEnabled('paydis_discount');
+
+        $this->view->assign(compact('payment_methods', 'settings', 'enabled'));
     }
 }

@@ -36,8 +36,8 @@ class shopPaydisPlugin extends shopPlugin
      */
     public function handlerOrderCalculateDiscount(array $params): array
     {
-
         try {
+            if (!shopDiscounts::isEnabled('paydis_discount')) return [];
             if ($payment_id = intval($params['order']['params']['payment_id'] ?? 0) ?: $this->getPaymentIdFromStorage()) {
                 $discounts = array_column((array)$this->getSettings('discounts'), null, 'payment_id');
                 if (!($discount = $discounts[$payment_id] ?? []) || !is_array($discount)) return [];
@@ -84,39 +84,5 @@ class shopPaydisPlugin extends shopPlugin
             $payment_id = intval($session['order']['payment']['id']);
 
         return $payment_id;
-    }
-
-    /**
-     * @param string $setting
-     * @param float $price
-     * @return float
-     * @noinspection DuplicatedCode
-     */
-    protected function simpleFormulaCalculator(string $setting = '', float $price = 0.0): float
-    {
-        if (!$setting) return 0;
-
-        $cost = 0.0;
-        $clear_conditions = preg_replace('/\\s+/', '', $setting);
-        $conditions_list = preg_split('/\+|(-)/', $clear_conditions, -1, PREG_SPLIT_OFFSET_CAPTURE | PREG_SPLIT_NO_EMPTY);
-
-        foreach ($conditions_list as $condition) {
-            $float_value = str_replace(',', '.', trim($condition[0]));
-
-            if (strpos($float_value, '%')) {
-                $float_value = $price * floatval($float_value) / 100;
-                $float_value = round($float_value, 2);
-            } else {
-                $float_value = floatval($float_value);
-            }
-
-            if ($condition[1] && (substr($clear_conditions, $condition[1] - 1, 1) == '-')) {
-                $cost -= $float_value;
-            } else {
-                $cost += $float_value;
-            }
-        }
-
-        return round(max(0.0, $cost), 2);
     }
 }
