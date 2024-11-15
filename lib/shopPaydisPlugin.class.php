@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright Serge Rodovnichenko, 2022
+ * @copyright Serge Rodovnichenko, 2022-2024
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
@@ -40,9 +40,15 @@ class shopPaydisPlugin extends shopPlugin
             if (!shopDiscounts::isEnabled('paydis_discount')) return [];
             if ($payment_id = intval($params['order']['params']['payment_id'] ?? 0) ?: $this->getPaymentIdFromStorage()) {
                 $discounts = array_column((array)$this->getSettings('discounts'), null, 'payment_id');
-                if (!($discount = $discounts[$payment_id] ?? []) || !is_array($discount)) return [];
-                if (!($discount = trim((string)($discount['discount'] ?? '')))) return [];
-                if (!($items = $params['order']['items'] ?? []) || !is_array($items)) return [];
+                if (!($discount = $discounts[$payment_id] ?? []) || !is_array($discount)) {
+                    return [];
+                }
+                if (!($discount = trim((string)($discount['discount'] ?? '')))) {
+                    return [];
+                }
+                if (!($items = $params['order']['items'] ?? []) || !is_array($items)) {
+                    return [];
+                }
                 $message = _wp('Скидка по способу оплаты');
                 $discount = floatval($discount) / 100;
                 return ['items' => array_map(function ($item) use ($discount, $message) {
@@ -73,15 +79,17 @@ class shopPaydisPlugin extends shopPlugin
     {
         $payment_id = 0;
 
-        $request_uri = trim(waRequest::server('REQUEST_URI'), '/');
+        $request_uri = trim((string)waRequest::server('REQUEST_URI', '', waRequest::TYPE_STRING_TRIM), '/');
         $checkout = $request_uri == trim(wa()->getRouteUrl('shop/frontend/checkout', ['step' => 'confirmation']), '/') ||
             $request_uri == trim(wa()->getRouteUrl('shop/frontend/checkout'), '/') ||
             false !== strpos($request_uri, 'buy1step');
         $session = wa()->getStorage()->get('shop/checkout');
-        if ($checkout && ($session['payment'] ?? 0))
+
+        if ($checkout && ($session['payment'] ?? 0)) {
             $payment_id = intval($session['payment']);
-        elseif ($session['order']['payment']['id'] ?? 0)
+        } elseif ($session['order']['payment']['id'] ?? 0) {
             $payment_id = intval($session['order']['payment']['id']);
+        }
 
         return $payment_id;
     }
