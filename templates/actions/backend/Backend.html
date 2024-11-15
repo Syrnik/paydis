@@ -1,0 +1,134 @@
+<div class="article">
+    <div class="article-body">
+        <div class="s-page-header"><h1 class="s-title">{_wp('По способу оплаты')|escape}</h1></div>
+
+        <form action="" id="s-paydis-plugin-form" class="fields">
+
+            <div class="field-group">
+                <input type="hidden" name="dummy" value="1">
+                <div class="field">
+                    <div class="name for-switch">[`Status`]</div>
+                    <div class="value">
+                        <div class="switch-with-text">
+                           <span class="switch js-switch-discount-type-status smaller" id="s-discount-type-switch">
+                               <input type="checkbox" id="s-discount-type-status" name="enabled"
+                                      value="1"{if $enabled} checked{/if}>
+                           </span>
+                            <label for="s-discount-type-status" data-active-text="{_wp('Включено')|escape}"
+                                   data-inactive-text="{_wp('Выключено')|escape}">{if $enabled}{_wp('Включено')|escape}{else}{_wp('Выключено')|escape}{/if}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-group" style="display: {if $enabled}block{else}none{/if}">
+                <div class="field">
+                    <div class="name">[`Скидка`]</div>
+                    <div class="value">
+                        {* Уберём это пока, оставим только проценты. Ибо формула требует ещё учёта валюты.
+
+                          <div class="help-text" style="margin: 0 0 2rem">
+                          [`Возможные значения для размера скидки`]
+                          <ul>
+                            <li>[`100 — просто какое-то число означает фиксированную скидку в валюте магазина`]</li>
+                            <li>[`15% — скидка в процентах от стоимости заказа`]</li>
+                            <li>[`100+15% — проценты от стоимости заказа и ещё фиксированная сумма в валюте магазина`]</li>
+                          </ul>
+                          [`Если итоговое значение скидки получится меньше нуля, то скидки просто не будет. Получить таким хитрым образом наценку не выйдет.`]
+                        </div>*}
+                        <table class="zebra">
+                            <thead>
+                            <tr>
+                                <th colspan="2">{_wp('Способ оплаты')|escape}</th>
+                                <th>{_wp('Скидка, %')|escape}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $settings.discounts as $row}{$method = $payment_methods[$row.payment_id]}
+                                <tr>
+                                    <td>{if $method.logo}<img src="{$method.logo}" alt="{$method.name|escape}">{/if}
+                                    </td>
+                                    <td>{$method.name|escape}</td>
+                                    <td>
+                                        <input name="discount[{$row.payment_id}]"
+                                               type="number"
+                                               min="0"
+                                               max="100"
+                                               step="0.001"
+                                               placeholder="{_wp('нет скидки')|escape}" value="{$row.discount|escape}">
+                                    </td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-group"{if !$enabled} style="display:none"{/if}>
+                <div class="field">
+                    <div class="value submit">
+                        <button type="submit" class="button green js-submit-button">{_wp('Сохранить')|escape}</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    (function ($) {
+        $.shop.marketing.setTitle({_wp('По способу оплаты')|json_encode:256});
+        let xhr = null, is_locked = false;
+        $("#s-discount-type-switch").waSwitch({
+            ready(wa_switch) {
+                let $label = wa_switch.$wrapper.siblings('label');
+                wa_switch.$label = $label;
+                wa_switch.active_text = $label.data('active-text');
+                wa_switch.inactive_text = $label.data('inactive-text');
+            },
+            change(active, wa_switch) {
+                wa_switch.$label.text(active ? wa_switch.active_text : wa_switch.inactive_text);
+                if (active) {
+                    $('#discount-types a[rel="paydis-plugin"] .js-icon').attr('class', 'fa-check text-green');
+                    wa_switch.$wrapper.closest('.field-group').siblings().show();
+                } else {
+                    wa_switch.$wrapper.closest('.field-group').siblings().hide();
+                    $('#discount-types a[rel="paydis-plugin"] .js-icon').attr('class', 'fa-times text-light-gray');
+                }
+
+                if (xhr) xhr.abort();
+                xhr = $.post(
+                    '{$wa_app_url}marketing/?module=marketingDiscountsEnable',
+                    {
+                        type: 'paydis_discount',
+                        enable: active ? 1 : 0
+                    }
+                ).always(() => xhr = null);
+            }
+        });
+
+        const $form = $('#s-paydis-plugin-form'), $submitButton = $(':submit', $form);
+
+        $form.on('submit', event => {
+            event.preventDefault();
+
+            if (!is_locked) {
+                is_locked = true;
+                const $loading = $('<i class="fas fa-spinner wa-animation-spin custom-ml-4"></i>');
+                $submitButton.prop('disabled', true).after($loading);
+
+                $.post('{$wa_app_url}?plugin=paydis&module=discounts&action=save', $form.serialize(), 'json')
+                    .done(r => {
+                        if (r.status === 'ok') $.shop.marketing.content.reload();
+                    })
+                    .always(() => {
+                        is_locked = false;
+                        $submitButton.prop('disabled', false);
+                        $loading.remove();
+                    });
+            }
+        });
+
+    })(jQuery);
+</script>

@@ -36,5 +36,6 @@ return array(
     '*/composer.json',
     'composer.lock',
     'composer.json',
-    '.phpstorm.meta.php'
+    '.phpstorm.meta.php',
+    '.editorconfig'
 );
