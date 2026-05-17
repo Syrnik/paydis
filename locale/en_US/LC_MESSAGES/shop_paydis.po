@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/paydis\n"
+"POT-Creation-Date: 2026-05-17 10:40+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: shop/plugins/paydis\n"
+"Language-Team: shop/plugins/paydis\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: en_US\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Скидка"
+msgstr "Discount"
+
+msgid "Возможные значения для размера скидки"
+msgstr "Possible discount amount values"
+
+msgid "100 — просто какое-то число означает фиксированную скидку в валюте магазина"
+msgstr "100 — just a number means a fixed discount in store currency"
+
+msgid "15% — скидка в процентах от стоимости заказа"
+msgstr "15% — discount as a percentage of order total"
+
+msgid "100+15% — проценты от стоимости заказа и ещё фиксированная сумма в валюте магазина"
+msgstr "100+15% — percentage of order total plus a fixed amount in store currency"
+
+msgid "Если итоговое значение скидки получится меньше нуля, то скидки просто не будет. Получить таким хитрым образом наценку не выйдет."
+msgstr "If the final discount value becomes less than zero, no discount will be applied. You cannot obtain a markup this way."
+
+msgid "По способу оплаты"
+msgstr "By payment method"
+
+msgid "Включено"
+msgstr "Enabled"
+
+msgid "Выключено"
+msgstr "Disabled"
+
+msgid "Способ оплаты"
+msgstr "Payment method"
+
+msgid "Скидка, %"
+msgstr "Discount, %"
+
+msgid "нет скидки"
+msgstr "No discount"
+
+msgid "Сохранить"
+msgstr "Save"
+
+msgid "Скидка на способ оплаты"
+msgstr "Payment method discount"
+
+msgid "Скидка по способу оплаты"
+msgstr "Discount by payment method"
+
+msgid "Плагин \"Скидка по способу оплаты\". Получено исключение при расчёте скидки: %s"
+msgstr "Plugin \"Discount by payment method\". Exception received while calculating discount: %s"

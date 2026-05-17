@@ -1,12 +1,16 @@
 <?php
 return array(
     '*/README.md',
+    '*/README.en.md',
     '*/LICENSE.txt',
     '*/CHANGELOG.md',
     '*/CONTRIBUTING.md',
     '*/contributors.txt',
     'README.md',
+    'README.en.md',
     'LICENSE.txt',
+    'LICENSE',
+    '*/LICENSE',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
     'contributors.txt',
@@ -37,5 +41,7 @@ return array(
     'composer.lock',
     'composer.json',
     '.phpstorm.meta.php',
-    '.editorconfig'
+    '.editorconfig',
+    '.github',
+    'compress-app-plugin.php'
 );

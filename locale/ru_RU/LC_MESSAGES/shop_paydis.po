@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/paydis\n"
+"POT-Creation-Date: 2026-05-17 10:40+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: shop/plugins/paydis\n"
+"Language-Team: shop/plugins/paydis\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-Language: ru_RU\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: utf-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+msgid "Status"
+msgstr ""
+
+msgid "Скидка"
+msgstr ""
+
+msgid "Возможные значения для размера скидки"
+msgstr ""
+
+msgid "100 — просто какое-то число означает фиксированную скидку в валюте магазина"
+msgstr ""
+
+msgid "15% — скидка в процентах от стоимости заказа"
+msgstr ""
+
+msgid "100+15% — проценты от стоимости заказа и ещё фиксированная сумма в валюте магазина"
+msgstr ""
+
+msgid "Если итоговое значение скидки получится меньше нуля, то скидки просто не будет. Получить таким хитрым образом наценку не выйдет."
+msgstr ""
+
+msgid "По способу оплаты"
+msgstr ""
+
+msgid "Включено"
+msgstr ""
+
+msgid "Выключено"
+msgstr ""
+
+msgid "Способ оплаты"
+msgstr ""
+
+msgid "Скидка, %"
+msgstr ""
+
+msgid "нет скидки"
+msgstr ""
+
+msgid "Сохранить"
+msgstr ""
+
+msgid "Скидка на способ оплаты"
+msgstr ""
+
+msgid "Скидка по способу оплаты"
+msgstr ""
+
+msgid "Плагин \"Скидка по способу оплаты\". Получено исключение при расчёте скидки: %s"
+msgstr ""
