@@ -9,6 +9,8 @@ return array(
     'README.md',
     'README.en.md',
     'LICENSE.txt',
+    'LICENSE',
+    '*/LICENSE',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
     'contributors.txt',
