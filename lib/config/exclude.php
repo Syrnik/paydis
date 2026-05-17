@@ -1,11 +1,13 @@
 <?php
 return array(
     '*/README.md',
+    '*/README.en.md',
     '*/LICENSE.txt',
     '*/CHANGELOG.md',
     '*/CONTRIBUTING.md',
     '*/contributors.txt',
     'README.md',
+    'README.en.md',
     'LICENSE.txt',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
